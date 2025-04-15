@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   SidebarProvider, 
   Sidebar, 
@@ -13,7 +14,6 @@ import {
   SidebarMenuItem, 
   SidebarMenuButton, 
   SidebarTrigger,
-  useSidebar
 } from '@/components/ui/sidebar';
 import { 
   Home, 
@@ -38,14 +38,29 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [darkMode, setDarkMode] = React.useState(true);
+  const location = useLocation();
   
+  // Initialize theme from localStorage on component mount
+  React.useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setDarkMode(savedTheme === 'dark');
+  }, []);
+  
+  // Update theme in both DOM and localStorage when it changes
   React.useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [darkMode]);
+
+  // Check if a menu item is active based on current path
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
 
   return (
     <SidebarProvider>
@@ -78,35 +93,35 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/">
+                    <SidebarMenuButton asChild isActive={isActive('/')}>
+                      <Link to="/">
                         <Home className="h-4 w-4" />
                         <span>Dashboard</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/apps">
+                    <SidebarMenuButton asChild isActive={isActive('/apps')}>
+                      <Link to="/apps">
                         <LayoutGrid className="h-4 w-4" />
                         <span>Applications</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/servers">
+                    <SidebarMenuButton asChild isActive={isActive('/servers')}>
+                      <Link to="/servers">
                         <Server className="h-4 w-4" />
                         <span>Servers</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/databases">
+                    <SidebarMenuButton asChild isActive={isActive('/databases')}>
+                      <Link to="/databases">
                         <Database className="h-4 w-4" />
                         <span>Databases</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
@@ -118,27 +133,27 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/containers">
+                    <SidebarMenuButton asChild isActive={isActive('/containers')}>
+                      <Link to="/containers">
                         <Package className="h-4 w-4" />
                         <span>Containers</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/monitors">
+                    <SidebarMenuButton asChild isActive={isActive('/monitors')}>
+                      <Link to="/monitors">
                         <Monitor className="h-4 w-4" />
                         <span>Monitoring</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/terminals">
+                    <SidebarMenuButton asChild isActive={isActive('/terminals')}>
+                      <Link to="/terminals">
                         <Terminal className="h-4 w-4" />
                         <span>Terminals</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
@@ -150,19 +165,19 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/profile">
+                    <SidebarMenuButton asChild isActive={isActive('/profile')}>
+                      <Link to="/profile">
                         <User className="h-4 w-4" />
                         <span>Profile</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <a href="/settings">
+                    <SidebarMenuButton asChild isActive={isActive('/settings')}>
+                      <Link to="/settings">
                         <Settings className="h-4 w-4" />
                         <span>Settings</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
@@ -172,11 +187,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           
           <SidebarFooter>
             <div className="flex w-full items-center justify-between">
-              <SidebarMenuButton asChild>
-                <a href="/help" className="!p-2">
+              <SidebarMenuButton asChild isActive={isActive('/help')}>
+                <Link to="/help" className="!p-2">
                   <HelpCircle className="h-4 w-4" />
                   <span>Help</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
               
               <div className="flex gap-2">
