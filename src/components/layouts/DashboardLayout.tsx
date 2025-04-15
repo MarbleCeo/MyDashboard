@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   SidebarProvider, 
@@ -31,23 +31,25 @@ import {
   Sun,
   Search
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
-  const [darkMode, setDarkMode] = React.useState(true);
+  const [darkMode, setDarkMode] = useState<boolean>(true);
   const location = useLocation();
+  const { toast } = useToast();
   
   // Initialize theme from localStorage on component mount
-  React.useEffect(() => {
+  useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     setDarkMode(savedTheme === 'dark');
   }, []);
   
   // Update theme in both DOM and localStorage when it changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
@@ -56,6 +58,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       localStorage.setItem('theme', 'light');
     }
   }, [darkMode]);
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+    toast({
+      description: `Theme switched to ${!darkMode ? 'dark' : 'light'} mode`,
+      duration: 2000,
+    });
+  };
 
   // Check if a menu item is active based on current path
   const isActive = (path: string) => {
@@ -196,7 +206,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               
               <div className="flex gap-2">
                 <button
-                  onClick={() => setDarkMode(!darkMode)}
+                  onClick={toggleTheme}
                   className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                   aria-label="Toggle theme"
                 >
@@ -210,6 +220,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 <button
                   className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                   aria-label="Log out"
+                  onClick={() => {
+                    toast({
+                      title: "Logged out",
+                      description: "You have been successfully logged out",
+                    });
+                  }}
                 >
                   <LogOut className="h-4 w-4" />
                 </button>

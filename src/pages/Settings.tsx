@@ -1,11 +1,45 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { Moon, Sun, Globe, Bell, Lock, Shield, Database, LayoutGrid } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Toggle } from '@/components/ui/toggle';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { useToast } from '@/hooks/use-toast';
 
 const Settings = () => {
+  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('dark');
+  const [compactMode, setCompactMode] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [showStatusBar, setShowStatusBar] = useState(true);
+  const [autoCollapseMobile, setAutoCollapseMobile] = useState(true);
+  const [rememberSidebarState, setRememberSidebarState] = useState(true);
+  
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme as 'light' | 'dark' | 'system');
+  }, []);
+
+  const handleThemeChange = (value: 'light' | 'dark' | 'system') => {
+    setTheme(value);
+    
+    if (value === 'system') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.classList.toggle('dark', prefersDark);
+      localStorage.setItem('theme', value);
+    } else {
+      document.documentElement.classList.toggle('dark', value === 'dark');
+      localStorage.setItem('theme', value);
+    }
+
+    toast({
+      description: `Theme switched to ${value} mode`,
+      duration: 2000,
+    });
+  };
+
   return (
     <DashboardLayout>
       <div className="p-6">
@@ -48,20 +82,20 @@ const Settings = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="font-medium mb-3">Theme</h3>
-                  <div className="flex gap-3">
-                    <Toggle aria-pressed="true" className="flex flex-col gap-1.5 h-auto px-4 py-3 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
+                  <ToggleGroup type="single" defaultValue={theme} onValueChange={(value) => handleThemeChange(value as 'light' | 'dark' | 'system')} className="flex gap-3">
+                    <ToggleGroupItem value="light" className="flex flex-col gap-1.5 h-auto px-4 py-3 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
                       <Sun className="h-5 w-5" />
                       <span className="text-xs">Light</span>
-                    </Toggle>
-                    <Toggle aria-pressed="false" className="flex flex-col gap-1.5 h-auto px-4 py-3 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="dark" className="flex flex-col gap-1.5 h-auto px-4 py-3 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
                       <Moon className="h-5 w-5" />
                       <span className="text-xs">Dark</span>
-                    </Toggle>
-                    <Toggle aria-pressed="false" className="flex flex-col gap-1.5 h-auto px-4 py-3 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="system" className="flex flex-col gap-1.5 h-auto px-4 py-3 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
                       <LayoutGrid className="h-5 w-5" />
                       <span className="text-xs">System</span>
-                    </Toggle>
-                  </div>
+                    </ToggleGroupItem>
+                  </ToggleGroup>
                 </div>
                 
                 <div className="space-y-3">
@@ -69,17 +103,17 @@ const Settings = () => {
                   
                   <div className="flex items-center justify-between">
                     <span>Compact Mode</span>
-                    <Switch />
+                    <Switch checked={compactMode} onCheckedChange={setCompactMode} />
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <span>Reduced Motion</span>
-                    <Switch />
+                    <Switch checked={reducedMotion} onCheckedChange={setReducedMotion} />
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <span>Show Status Bar</span>
-                    <Switch defaultChecked />
+                    <Switch checked={showStatusBar} onCheckedChange={setShowStatusBar} />
                   </div>
                 </div>
                 
@@ -88,12 +122,12 @@ const Settings = () => {
                   
                   <div className="flex items-center justify-between">
                     <span>Auto-collapse on mobile</span>
-                    <Switch defaultChecked />
+                    <Switch checked={autoCollapseMobile} onCheckedChange={setAutoCollapseMobile} />
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <span>Remember sidebar state</span>
-                    <Switch defaultChecked />
+                    <Switch checked={rememberSidebarState} onCheckedChange={setRememberSidebarState} />
                   </div>
                 </div>
               </div>
