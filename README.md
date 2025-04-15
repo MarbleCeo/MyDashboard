@@ -1,8 +1,19 @@
-# Welcome to your Lovable project
+# MyDashboard - A Powerful Application Management Dashboard
+
+A modern, versatile dashboard for managing multi-language applications including Rust, Golang, Python, Node.js, JavaScript, and TypeScript.
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/4c01d804-1a7e-405f-8651-17940aa76e11
+
+## Features
+
+- Modern, responsive dashboard UI with dark mode
+- Collapsible sidebar navigation
+- System resource monitoring
+- Application management cards with status indicators
+- Support for multiple programming languages/runtimes
+- Clean, professional design with subtle animations
 
 ## How can I edit this code?
 
