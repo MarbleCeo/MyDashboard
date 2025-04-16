@@ -1,124 +1,95 @@
-🚀 MyDashboard – Professional Application Management Dashboard
-by marbleceo
+# 🪩 MyDashboard — Powerful App Dashboard with Real CLI + Docker Support
 
-A real, powerful, and production-ready dashboard built to manage multi-language apps and infrastructure across Rust, Golang, Python, Node.js, JavaScript, and TypeScript environments.
+> 💖 **If you like my project and want to support my work**, please visit my store and grab some Marble Tokens at [https://t.co/DKIK0O7Xe8](https://t.co/DKIK0O7Xe8).  
+> 🧠 Stay updated with me on X: [@MarbleCeo](https://x.com/MarbleCeo)
 
-📌 Overview
-MyDashboard is a zero-friction, dark-mode optimized dashboard to monitor, manage, and deploy your services with clean UI, real-time status updates, and multi-runtime support.
+---
 
-No bloat. No third-party lock-in. Just raw power for real developers.
+## 🌐 Overview
 
-🧱 Key Features
-⚙️ Multi-runtime support: Rust, Go, Node.js, Python, TypeScript, JavaScript
+**MyDashboard** is a powerful, real-time application management interface designed for developers who need full control over multi-language environments like:
 
-📊 System resource monitoring in real-time
+- 🦀 Rust
+- 🐹 Golang
+- 🐍 Python
+- 🟢 Node.js
+- 💻 TypeScript / JavaScript
 
-🧩 Application cards for quick status control
+Built with modern tools, CLI integration, and Docker support, this dashboard is a clean, responsive, and developer-first environment.
 
-🔒 Secure admin panel (JWT/Token-ready)
+---
 
-🖥️ Built-in CLI Terminal access (for live ops/debugging)
+## ✨ Features
 
-🌒 Dark mode UI with futuristic, minimal design
+- ⚙️ **Real Terminal (CLI)** – Run real system commands from your browser  
+- 🖥️ **Live Monitoring** – Track CPU, RAM, processes, and app status  
+- 🐳 **Docker-Ready** – Easily manage app containers and VMIA nodes  
+- 🧠 **Multi-runtime Support** – Deploy and monitor apps in Rust, Go, Node, Python  
+- 🌙 **Futuristic Dark UI** – Built with Tailwind CSS + shadcn/ui for a beautiful developer UX  
+- 🔐 **Admin-Only DEX Prototype** – Solflare-ready for secure wallet login and control  
+- 🛠️ **Live Logs + Smart Deploy** – See output and deploy directly from dashboard  
+- 📁 **Upload & Test Contracts** – Solidity + Rust template loader for smart contracts  
 
-📈 Live logs & deploy status tracking
+---
 
-💡 Fully open source and self-hostable
+## 🧪 Tech Stack
 
-🏗️ Quick Installation
-You want real instructions? Let’s go.
+- Vite + React + TypeScript  
+- Tailwind CSS + shadcn/ui  
+- Docker + CLI API (Node.js or Rust backend options)  
+- Solana Wallet Connect (Solflare-compatible)  
+- Cross-runtime awareness (Rust/Go/Python/Node)
 
-🖥️ Requirements
-Node.js >= 18.x
+---
 
-Git
+## 🚀 Getting Started
 
-Your favorite terminal
+Clone and run the project locally:
 
-(Optional) Docker for containerized deployments
-
-🔧 Setup from Scratch (Terminal Real Deal)
-bash
-Copy
-Edit
-# 1. Clone the project
-git clone https://github.com/YOUR_USERNAME/mydashboard.git
-
-# 2. Move into the project directory
+```bash
+git clone https://github.com/yourusername/mydashboard
 cd mydashboard
-
-# 3. Install dependencies
 npm install
-
-# 4. Start the dev server
 npm run dev
-🐳 Docker (One-liner to run it containerized)
-bash
-Copy
-Edit
-docker run -d -p 3000:3000 \
-  --name mydashboard \
-  ghcr.io/YOUR_USERNAME/mydashboard:latest
-Want to build locally?
+Or build with Docker:
 
 bash
 Copy
 Edit
 docker build -t mydashboard .
-docker run -d -p 3000:3000 mydashboard
-🌐 Technologies Used
-
-Tech	Use
-React	Frontend architecture
-Vite	Blazing fast builds
-Tailwind CSS	Utility-first styling
-TypeScript	Strong typing everywhere
-shadcn/ui	Clean, accessible UI components
-Docker	Optional containerization
-📁 Project Structure
-vbnet
+docker run -p 80:80 mydashboard
+📄 Folder Structure
+plaintext
 Copy
 Edit
-📦 mydashboard
-┣ 📂 src/
-┃ ┣ 📂 components/      → UI components
-┃ ┣ 📂 hooks/           → Custom React hooks
-┃ ┣ 📂 pages/           → Views (Dashboard, Terminal, etc)
-┃ ┗ 📂 utils/           → Utilities and services
-┣ 📄 Dockerfile         → For container deployment
-┣ 📄 README.md          → You're reading it!
-┗ 📄 tailwind.config.js → Styling setup
-🔐 Authentication (Optional)
-The dashboard is designed to support JWT-based or token-based admin-only access.
-You can implement your own login logic or hook it into existing systems (Firebase, Supabase, Auth0, etc.).
+📦 mydashboard/
+├── 📁 src/
+│   ├── 📁 components/
+│   ├── 📁 pages/
+│   ├── 📁 cli/
+│   ├── 📁 services/
+│   └── App.tsx, main.tsx
+├── Dockerfile
+├── README.md
+├── vite.config.ts
+├── tailwind.config.js
+💡 Coming Soon
+🔐 User Roles & Auth
 
-📢 Custom Domains & Deploy
-You can deploy on:
+🌐 Real-time Docker container graph
 
-Vercel
+📊 Wallet contribution stats via VMIA
 
-Netlify
+💸 Token-based reward system integration
 
-Render
+❤️ Support This Project
+Buy Marble Tokens and support future open-source work:
+👉 https://t.co/DKIK0O7Xe8
 
-AWS EC2 / Lightsail
+Follow for updates & blockchain drops:
+🧠 https://x.com/MarbleCeo
 
-DigitalOcean
-
-Docker VPS
-
-Even a Raspberry Pi 👀
-
-Need help configuring? Just drop in a vercel.json or a netlify.toml file depending on the platform.
-
-✍️ Coming Soon
-⚡ Real-time socket connections (WebSocket)
-
-📁 Multi-user support
-
-🔒 Granular permissions
-
-🔌 Plugin system (for app modules)
+📌 Hashtags
 
 🔖 Hashtags to Help the World Find This
 bash
@@ -137,3 +108,4 @@ Edit
 #appMonitoringTool  
 #marbleceoDashboard  
 #cliDashboardReact  
+#reactdashboard #blockchaindashboard #dockerui #opensourcecli #rustdev #golangdev #web3dashboard #marbletokens #solflarewallet #adminpanel #devtools #fullstackui #typescriptdev #tailwindcssui #blockchainadmin #vmia #web3infra
